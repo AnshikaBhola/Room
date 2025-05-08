@@ -18,11 +18,14 @@ public class Booking {
     public double getCost() { return cost; }
     public String getUsername() { return username; }
 
-    @Override
-    public String toString() {
-        return "Booking\nRoom = " + room.getName() +
-               "\nTimeRange = " + timeRange +
-               "\nCost = " + cost +
-               "\nUser = " + username + "\n";
-    }
+   @Override
+public String toString() {
+    return "Booking:->" +
+            "\nRoom ID=" + room.getRoomId() +
+            "\nRoom Name='" + room.getName() + 
+            "\nTime Range=" + timeRange +
+            "\nCost=" + cost +
+            "\nUser='" + username   ;
+}
+
 }
