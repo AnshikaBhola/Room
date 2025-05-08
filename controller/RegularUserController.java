@@ -88,22 +88,38 @@ public class RegularUserController {
         }
     }
 
-    private void cancelBooking(String username) {
-        List<Booking> bookings = bookingService.getUserBookings(username);
-        if (bookings.isEmpty()) {
-            System.out.println("No bookings to cancel.");
-            return;
+   private void cancelBooking(String username) {
+    List<Booking> bookings = bookingService.getUserBookings(username);
+    if (bookings.isEmpty()) {
+        System.out.println("You have no bookings to cancel.");
+        return;
+    }
+
+    viewBookings(username);
+
+    String roomId;
+    while (true) {
+        System.out.print("Enter Room ID to cancel (positive integer only): ");
+        roomId = scanner.nextLine();
+        if (roomId.matches("\\d+") && Integer.parseInt(roomId) > 0) {
+            break;
         }
+        System.out.println("Invalid Room ID. Please enter a valid positive integer.");
+    }
 
-        viewBookings(username);
-        System.out.print("Enter booking number to cancel: ");
-        int index = Integer.parseInt(scanner.nextLine()) - 1;
-
-        if (index >= 0 && index < bookings.size()) {
-            bookingService.cancelBooking(bookings.get(index));
-            System.out.println("Booking cancelled.");
-        } else {
-            System.out.println("Invalid selection.");
+    boolean found = false;
+    for (Booking booking : bookings) {
+        if (booking.getRoom().getRoomId().equals(roomId)) {
+            bookingService.cancelBooking(booking);
+            System.out.println("Booking for Room ID " + roomId + " cancelled.");
+            found = true;
+            break;
         }
     }
+
+    if (!found) {
+        System.out.println("No booking found with Room ID " + roomId + " for your account.");
+    }
+}
+
 }

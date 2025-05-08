@@ -20,9 +20,9 @@ public class Booking {
 
     @Override
     public String toString() {
-        return "Booking{room=" + room.getName() +
-               ", timeRange=" + timeRange +
-               ", cost=" + cost +
-               ", user=" + username + "}";
+        return "Booking\nRoom = " + room.getName() +
+               "\nTimeRange = " + timeRange +
+               "\nCost = " + cost +
+               "\nUser = " + username + "\n";
     }
 }

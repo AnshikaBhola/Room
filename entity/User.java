@@ -1,8 +1,8 @@
 package entity;
 
 public abstract class User {
-    protected String username;
-    protected String password;
+    private String username;
+    private String password;
 
     public User(String username, String password) {
         this.username = username;
@@ -12,5 +12,6 @@ public abstract class User {
     public String getUsername() { return username; }
     public String getPassword() { return password; }
 
+    // Subclasses must define this
     public abstract String getRole();
 }

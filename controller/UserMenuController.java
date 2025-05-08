@@ -4,12 +4,14 @@ import entity.User;
 
 public class UserMenuController {
     public void loadMenu(User user) {
+        if (user == null) {
+            System.out.println("Error: User object is null.");
+            return;
+        }
+
         switch (user.getRole()) {
             case "ADMIN":
-                System.out.println("🔧 Admin Menu: Coming soon...");
-
-                ResourceManagerController rmc=new ResourceManagerController();
-                rmc.showMenu();
+                new ResourceManagerController().showMenu();
                 break;
             case "RESOURCE_MANAGER":
                 new ResourceManagerController().showMenu();

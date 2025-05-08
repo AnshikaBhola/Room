@@ -21,7 +21,8 @@ public class UserService {
                 throw new IllegalArgumentException("Invalid role.");
         }
 
-        userRepo.save(user);
+       userRepo.addUser(user);
+
         return true;
     }
 

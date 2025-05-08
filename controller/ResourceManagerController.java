@@ -37,55 +37,92 @@ public class ResourceManagerController {
         }
     }
 
-    private void addRoom() {
-        System.out.print("Room ID: ");
-        String id = scanner.nextLine();
-        System.out.print("Room Name: ");
-        String name = scanner.nextLine();
-        System.out.print("Cost Per Hour: ");
-        double cost = Double.parseDouble(scanner.nextLine());
+private void addRoom() {
+    String id;
+    while (true) {
+        System.out.print("Room ID (integer only): ");
+        id = scanner.nextLine();
+        if (id.matches("\\d+")) break;
+        System.out.println(" Room ID must be an integer and a positive number. Please try again.");
+    }
 
+    String name;
+    while (true) {
+        System.out.print("Room Name (letters/numbers only): ");
+        name = scanner.nextLine();
+        if (name.matches("[a-zA-Z0-9 ]+")) break;
+        System.out.println("Room Name must be alphabetic or alphanumeric.");
+    }
+
+    double cost;
+    while (true) {
+        System.out.print("Cost Per Hour: ");
         try {
-            roomService.addRoom(new Room(id, name, cost));
-            System.out.println("✅ Room added.");
-        } catch (Exception e) {
-            System.out.println("❌ " + e.getMessage());
+            cost = Double.parseDouble(scanner.nextLine());
+            if (cost <= 0) {
+                System.out.println("Provide a valid cost (> 0).");
+                continue;
+            }
+            break;
+        } catch (NumberFormatException e) {
+            System.out.println("Please enter a valid numeric cost.");
         }
     }
 
-    private void updateRoom() {
-        System.out.print("Enter Room ID to update: ");
-        String id = scanner.nextLine();
-        Room existing = roomService.getRoomById(id);
-        if (existing == null) {
-            System.out.println("Room not found.");
-            return;
-        }
+    try {
+        roomService.addRoom(new Room(id, name, cost));
+        System.out.println("Room added.");
+    } catch (Exception e) {
+        System.out.println(e.getMessage());
+    }
+}
 
-        System.out.print("New Room Name: ");
-        String name = scanner.nextLine();
+
+private void updateRoom() {
+    System.out.print("Enter Room ID to update: ");
+    String id = scanner.nextLine();
+    Room existing = roomService.getRoomById(id);
+    if (existing == null) {
+        System.out.println("Room not found.");
+        return;
+    }
+
+    System.out.print("New Room Name: ");
+    String name = scanner.nextLine();
+
+    double cost;
+    while (true) {
         System.out.print("New Cost Per Hour: ");
-        double cost = Double.parseDouble(scanner.nextLine());
+        try {
+            cost = Double.parseDouble(scanner.nextLine());
+            if (cost <= 0) {
+                System.out.println("Provide a valid cost (> 0).");
+                continue;
+            }
+            break;
+        } catch (NumberFormatException e) {
+            System.out.println("Please enter a valid numeric cost.");
+        }
+    }
 
+    try {
         existing.setName(name);
         existing.setCostPerHour(cost);
-
-        try {
-            roomService.updateRoom(existing);
-            System.out.println("✅ Room updated.");
-        } catch (Exception e) {
-            System.out.println("❌ " + e.getMessage());
-        }
+        roomService.updateRoom(existing);
+        System.out.println("✅ Room updated.");
+    } catch (Exception e) {
+        System.out.println(e.getMessage());
     }
+}
 
     private void deleteRoom() {
         System.out.print("Enter Room ID to delete: ");
-        String id = scanner.nextLine();
+       String id = scanner.nextLine();
         try {
             roomService.deleteRoom(id);
-            System.out.println("✅ Room deleted.");
+            System.out.println("Room deleted.");
         } catch (Exception e) {
-            System.out.println("❌ " + e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
 

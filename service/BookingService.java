@@ -13,7 +13,7 @@ public class BookingService {
 
     public boolean isAvailable(Room room, DateTimeRange range) {
         return repo.findAll().stream()
-                .filter(b -> b.getRoom().getRoomId().equals(room.getRoomId()))
+                .filter(b -> b.getRoom().getRoomId()==(room.getRoomId()))
                 .noneMatch(b -> b.getTimeRange().overlaps(range));
     }
 

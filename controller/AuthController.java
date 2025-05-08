@@ -38,9 +38,9 @@ public class AuthController {
         String role = scanner.nextLine();
 
         if (userService.register(uname, pwd, role)) {
-            System.out.println("✅ Registered successfully.");
+            System.out.println("Registered successfully.");
         } else {
-            System.out.println("❌ Username already exists.");
+            System.out.println("Username already exists.");
         }
     }
 
@@ -52,10 +52,10 @@ public class AuthController {
 
         User user = userService.login(uname, pwd);
         if (user != null) {
-            System.out.println("✅ Login successful! Logged in as " + user.getRole());
+            System.out.println("Login successful! Logged in as " + user.getRole());
             return user;
         } else {
-            System.out.println("❌ Invalid credentials.");
+            System.out.println("Invalid credentials.");
             return null;
         }
     }

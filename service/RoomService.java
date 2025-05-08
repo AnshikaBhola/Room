@@ -19,6 +19,7 @@ public class RoomService {
         if (!repo.exists(room.getRoomId())) {
             throw new IllegalArgumentException("Room ID does not exist.");
         }
+        repo.deleteRoom(room.getRoomId());
         repo.addRoom(room); // overwrite
     }
 
